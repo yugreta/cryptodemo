@@ -1,0 +1,55 @@
+<div class="outer">
+    <p>
+        We learned about several classical ciphers at the beginning of this class. 
+        We were curious as to what classical ciphers existed for a logographic language such as Chinese. 
+        Unlike the classical ciphers we learned, many of the classical Chinese ciphers are actually not based on what's in the plaintext. 
+    </p>
+    <p>
+        So we attempted our own take on a "Chinese Rot Cipher." We used unicode numbers to represent each Chinese character and did the rotation on those numbers.
+        English rot ciphers are easy to encrypt and decrypt by hand, but our Chinese Rot Ciphter isn’t as practical for everyday use.
+        Compared to English's 26 letters, there are 20991 Chinese unicode characters! However, we think this is a cool way to demonstrate what we learned.
+    </p>
+
+    <hr>
+
+    <div id="demo">
+        <span>
+            Chinese Characters: <input id="characters">
+            <br>
+            Rot-Number: <input type="number" id="rotNumber">
+        </span>
+        <span>
+            <button (click)="chineseRotCipher('e')">Encrypt</button>
+            <br>
+            <button (click)="chineseRotCipher('d')">Decrypt</button>
+        </span>
+        <p *ngIf="this.translated">
+            {{this.original}} --> {{this.translated}}
+        </p>
+    </div>
+
+    <hr>
+
+    <p>
+        Now we'll present actual Chinese ciphers.
+        One early form of Chinese secret sharing split a message into several parts. 
+        Each part of the message would then be sent by different messengers at different times. 
+        The receiver would then put together the whole message once they received all the parts. 
+        If any message was intercepted, the interceptor would not be able to make sense without the other messages. <sup><a href="https://baike.baidu.com/item/阴书" target="_block">[1]</a></sup>
+    </p>
+    <p>
+        Code-books were a type of substitution cipher used by the Chinese military. 
+        High ranking officials had code-books that mapped commonly used military words to ciphertexts. 
+        They would use these code-books to encrypt messages and send them to other high ranking officials who would then need their own code-books to decrypt the message. <sup><a href="https://blogs.cul.columbia.edu/rbml/2019/10/09/chinese-telegraphic-codebooks-and-cryptography/" target="_block">[2]</a></sup>
+    </p>
+    <p>
+        Transposition ciphers were also used, where messages would be written in a non-standard way. 
+        For example, instead of writing words left to right, they would be written right to left. <sup><a href="https://en.wikipedia.org/wiki/Classical_cipher#Transposition_ciphers" target="_block">[3]</a></sup>
+    </p>
+    <p>
+        While researching, we came across a pronunciation system called 反切 (fan qie). However, we can see its use as a cipher system.
+        In 反切, two characters are used to represent one.
+        This is done by taking the starting sound of the first character and combining it with the ending sound of the second character.
+        For example, 中國(zhong guo) would become "zhuo", taking the "zh" from "zh-ong" and the "uo" from "g-uo." <sup><a href="https://en.wikipedia.org/wiki/Fanqie" target="_block">[4]</a></sup>
+    </p>
+</div>

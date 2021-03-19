@@ -1,0 +1,50 @@
+.outer {
+    text-align: center;
+
+    p {
+        text-align: left;
+
+        a {
+            color: white;
+        }
+    }
+
+    hr {
+        border: 1px dashed var(--highlight);
+    }
+
+    #demo {
+        padding: 16px;
+        color: var(--highlight);
+        font-family: monospace;
+
+        span {
+            display: inline-block; 
+            vertical-align: top;
+            text-align: right;
+
+            input {
+                background: transparent;
+                color: var(--highlight);
+                border: 0;
+                outline: 0;
+            }
+
+            button {
+                background-color: transparent;
+                color: var(--highlight);
+                border: 1px solid var(--highlight);
+                font-family: monospace;
+            }
+            button:hover {
+                background-color: var(--highlight);
+                color: var(--bg);
+            }
+        }
+
+        p {
+            margin: 16px 0 0;
+            text-align: center;
+        }
+    }
+}

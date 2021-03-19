@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --bg: rgb(14, 17, 22);
+    --highlight: rgb(103, 208, 90);
+
+    background-color: var(--bg);
+    color: white;
+    line-height: 1.6;
+
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--highlight);
+    }
+    ::-webkit-scrollbar {
+        background-color: var(--bg);
+    }
+
+    .outer {
+        padding: 70px 270px;
+
+        p {
+            font-size: large;
+        }
+    }
+}

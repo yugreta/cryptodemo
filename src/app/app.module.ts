@@ -3,10 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ChineseComponent } from './chinese/chinese.component';
+import { DiffieHellmanComponent } from './diffie-hellman/diffie-hellman.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChineseComponent,
+    DiffieHellmanComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,160 @@
+<div class="outer">
+    <p>
+        In class, we learned how Diffie-Hellman key exchange allows two people to create a shared private secret key over a public channel.
+        Let's look at a paint analogy to illustrate how Diffie-Hellman works.
+    </p>
+
+    <div class="demo">
+        <span class="alice"><h3>Alice</h3></span>
+        <span class="eve"><h3>Eve</h3></span>
+        <span class="bob"><h3>Bob</h3></span>
+    </div>
+
+    <ng-template #elseBlock><span class="bob"> </span></ng-template>
+
+    <div class="demo">
+        <h4>public agreed upon values:</h4>
+        <input id="common" type="color" value="#ff0000">
+        <p id="step1">
+            Select a common color. This color represents Bob and Alice's public agreed upon common values: the secure prime p and primitive root α.
+            Anyone and everyone can see these public values, including Eve.
+            Alice and Bob will later use these values, along with their own private keys, to compute their public keys.
+        </p>
+        <button *ngIf="step == 1" (click)="setCommon()">confirm public color</button>
+    </div>
+
+    <div *ngIf="step >= 2" class="demo">
+        <span class="alice">
+            <h4>private key:</h4>
+            <input id="private" type="color" value="#00ff00">
+            <p>
+                Select Alice's private color. This color represents Alice's private key S<sub>A</sub>. Only Alice can see this.
+            </p>
+            <button *ngIf="step == 2" (click)="setAlice()">confirm private color</button>
+        </span>
+
+        <span class="eve"> </span>
+
+        <span *ngIf="step == 8; else elseBlock" class="bob">
+            <h4>private key:</h4>
+            <canvas class="bobkey"></canvas>
+            <p>
+                This is Bob's private color. This color represents Bob's private key S<sub>B</sub>. Only Bob can see this.
+            </p>
+        </span>
+    </div>
+
+    <div *ngIf="step >= 3" class="demo">
+        <span class="alice">
+            <h4>public key:</h4>
+            <div *ngIf="step >= 3">
+                <canvas class="commonColor"></canvas><div class="equation">+</div><canvas class="alicekey"></canvas>
+                <div class="equation">=</div>
+                <button *ngIf="step == 3" (click)="makePublicKey()">mix</button>
+                <canvas *ngIf="step >= 4" class="alicepublic"></canvas>
+            </div>
+            <p>
+                We'll mix the public common color and Alice's private color to generate Alice's public key color. 
+                This represents the operation T<sub>A</sub> ≡ α<sup>S<sub>A</sub></sup> (mod p) in the Diffie-Hellman key exchange to create Alice's public key. 
+            </p>
+        </span>
+
+        <span class="eve"> </span>
+
+        <span *ngIf="step == 8; else elseBlock" class="bob">
+            <h4>public key:</h4>
+            <canvas class="commonColor"></canvas><div class="equation">+</div><canvas class="bobkey"></canvas>
+            <div class="equation">=</div><canvas class="bobpublic"></canvas>
+            <p>
+                This is Bob's public color, which represents his public key.
+                Bob mixed the common color and his private color to get this public color.
+                This color represents the operation T<sub>B</sub> ≡ α<sup>S<sub>B</sub></sup> (mod p) in the Diffie-Hellman key exchange to create Bob's public key. 
+            </p>
+        </span>
+    </div>
+
+    <div *ngIf="step >= 4" class="demo">
+        <span class="alice">
+            <h4>exchange public keys:</h4>
+            <div *ngIf="step == 4">
+                <canvas class="alicepublic"></canvas>
+                <br>
+                <button (click)="exchange()">exchange in public</button>
+            </div>
+            <div *ngIf="step == 5">
+                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                <p>exchanging public keys over a public channel</p>
+            </div>
+            <div *ngIf="step >= 6">
+                <canvas class="bobpublic"></canvas>
+                <p>
+                    Alice now has Bob's public color/key.
+                </p>
+            </div>
+        </span>
+
+        <span class="eve">
+            <div *ngIf="step >= 6">
+                <canvas class="alicepublic"></canvas><canvas class="bobpublic"></canvas>
+                <p>
+                    Eve and everyone else can see Alice and Bob's public colors/keys since they were exchanged over a public channel. 
+                    We'll say paint extraction is expensive, so Eve cannot separate the paint mixture to find the private colors that Alice and Bob used.
+                    As such, Eve only knows the combined colors and the original common color, but not the private colors. 
+                    This is analogous to Diffie-Hellman key exchange: Eve sees T<sub>A</sub> (Alice's public key), and knows that it is calcuated by doing α<sup>S<sub>A</sub></sup> (mod p). 
+                    Even though Eve knows α and p (the common color), she is unable to solve for S<sub>A</sub> (the private color) due to discrete logs being difficult to solve.
+                    The same goes for Bob's private color/key.
+                </p>
+            </div>
+        </span>
+
+        <span *ngIf="step == 8; else elseBlock" class="bob">
+            <h4>exchange public keys:</h4>
+            <canvas class="alicepublic"></canvas>
+            <p>
+                Bob now has Alice's public color/key.
+            </p>
+        </span>
+    </div>
+
+    <div *ngIf="step >= 6" class="demo">
+        <span class="alice">
+            <h4>private shared secret:</h4>
+            <div *ngIf="step >= 6">
+                <canvas class="alicekey"></canvas><div class="equation">+</div><canvas class="bobpublic"></canvas>
+                <div class="equation">=</div>
+                <button *ngIf="step == 6" (click)="makeShared()">mix</button>
+                <canvas *ngIf="step >= 7" class="shared"></canvas>
+            </div>
+            <p>
+                We'll mix Alice's private color and Bob's public color, creating a private shared color between Alice and Bob.
+                This represents the Diffie-Hellman key exchange step of doing T<sub>B</sub><sup>S<sub>A</sub></sup> (mod p) ≡ α<sup>S<sub>A</sub>S<sub>B</sub></sup>. 
+                Alice and Bob end up with the same secret, even though they never shared their private colors or keys!
+            </p>
+            <button *ngIf="step == 7" (click)="seeBob()">see Bob's process</button>
+        </span>
+
+        <span class="eve"> </span>
+
+        <span *ngIf="step == 8; else elseBlock" class="bob">
+            <h4>private shared secret:</h4>
+            <canvas class="bobkey"></canvas><div class="equation">+</div><canvas class="alicepublic"></canvas>
+            <div class="equation">=</div><canvas class="shared"></canvas>
+            <p>
+                Bob has generated the same shared secret color/key that Alice has generated! 
+                Bob mixed his private color and Alice's public color to get this private shared color.
+                This represents the Diffie-Hellman key exchange step of doing T<sub>A</sub><sup>S<sub>B</sub></sup> (mod p) ≡ α<sup>S<sub>A</sub>S<sub>B</sub></sup>.
+            </p>
+            <button *ngIf="step == 8" (click)="reset()">reset model</button>
+        </span>
+    </div>
+
+    <p>inspired by <a href="https://en.wikipedia.org/wiki/Diffie-Hellman_key_exchange" target="_blank">Diffie-Hellman Wikipedia wiki</a></p>
+</div>
+
+
+
+
+
+
+
+

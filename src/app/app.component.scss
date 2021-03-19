@@ -1,0 +1,17 @@
+nav {
+    background-color: var(--highlight);
+    color:  var(--bg);
+    padding: 30px;
+    text-align: center;
+    font-family: monospace;
+    font-size: x-large;
+
+    a {
+        color: var(--bg);
+        text-decoration: none;
+    }
+    a:hover, .activebutton {
+        background-color: var(--bg);
+        color: var(--highlight);
+    }
+}

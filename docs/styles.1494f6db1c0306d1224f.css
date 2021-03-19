@@ -1,0 +1,1 @@
+:root{--bg:#0e1116;--highlight:#67d05a;background-color:var(--bg);color:#fff;line-height:1.6}:root ::-webkit-scrollbar-thumb{background-color:var(--highlight)}:root ::-webkit-scrollbar{background-color:var(--bg)}:root .outer{padding:70px 270px}:root .outer p{font-size:large}
